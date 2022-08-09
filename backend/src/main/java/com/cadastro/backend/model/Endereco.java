@@ -22,7 +22,7 @@ public class Endereco {
     private String cidade;
     private String estado;
 
-    @OneToOne(mappedBy = "salario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Empresa empresa;
 
     public Endereco() {
