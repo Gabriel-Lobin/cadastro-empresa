@@ -17,6 +17,7 @@ public class Empresa {
     private String razaoSocial;
     private String nomeFantasia;
     private String cnpj;
+    private String telefone;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Endereco endereco;
@@ -24,10 +25,11 @@ public class Empresa {
     public Empresa() {
     }
 
-    public Empresa(String razaoSocial, String nomeFantasia, String cnpj, Endereco endereco) {
+    public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String telefone, Endereco endereco) {
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
+        this.telefone = telefone;
         this.endereco = endereco;
     }
 
@@ -61,6 +63,22 @@ public class Empresa {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
 }
