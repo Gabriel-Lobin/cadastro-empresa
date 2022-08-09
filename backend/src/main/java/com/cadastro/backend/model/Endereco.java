@@ -1,9 +1,12 @@
 package com.cadastro.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Endereco {
@@ -18,6 +21,9 @@ public class Endereco {
     private String bairro;
     private String cidade;
     private String estado;
+
+    @OneToOne(mappedBy = "salario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Empresa empresa;
 
     public Endereco() {
     }

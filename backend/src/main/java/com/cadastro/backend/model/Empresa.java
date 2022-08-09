@@ -1,6 +1,7 @@
 package com.cadastro.backend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class Empresa {
     private String nomeFantasia;
     private String cnpj;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Endereco endereco;
 
     public Empresa() {
