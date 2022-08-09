@@ -1,6 +1,7 @@
 package com.cadastro.backend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,17 +17,19 @@ public class Empresa {
     private String razaoSocial;
     private String nomeFantasia;
     private String cnpj;
+    private String telefone;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Endereco endereco;
 
     public Empresa() {
     }
 
-    public Empresa(String razaoSocial, String nomeFantasia, String cnpj, Endereco endereco) {
+    public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String telefone, Endereco endereco) {
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
         this.cnpj = cnpj;
+        this.telefone = telefone;
         this.endereco = endereco;
     }
 
@@ -60,6 +63,22 @@ public class Empresa {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
 }
