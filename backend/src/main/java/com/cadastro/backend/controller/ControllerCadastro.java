@@ -15,6 +15,7 @@ import com.cadastro.backend.model.Empresa;
 
 @RestController
 @RequestMapping("/empresa")
+@RequestMapping("/empresa")
 public class ControllerCadastro {
 
 	@Autowired
