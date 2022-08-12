@@ -1,13 +1,17 @@
 package com.cadastro.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@Table(name = "empresa")
 public class Empresa {
 
     @Id
@@ -19,19 +23,9 @@ public class Empresa {
     private String cnpj;
     private String telefone;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Endereco endereco;
-
-    public Empresa() {
-    }
-
-    public Empresa(String razaoSocial, String nomeFantasia, String cnpj, String telefone, Endereco endereco) {
-        this.razaoSocial = razaoSocial;
-        this.nomeFantasia = nomeFantasia;
-        this.cnpj = cnpj;
-        this.telefone = telefone;
-        this.endereco = endereco;
-    }
 
     public Long getId() {
         return id;
