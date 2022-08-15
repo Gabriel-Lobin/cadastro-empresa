@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,52 +20,29 @@ import com.cadastro.backend.model.Empresa;
 public class ControllerCadastro {
 
 	@Autowired
-	private ServiceCadastro service;
-
-	// @Autowired
-	// private ServiceEndereco serviceEnd;
-
-	// @Autowired
-	// private RepositoryCadastro cadastro;
+	private ServiceCadastro serviceCadastro;
 
 	@GetMapping
 	public ResponseEntity<List<Empresa>> getAll() {
 
-		List<Empresa> listEmpresas = service.getAll();
+		List<Empresa> listEmpresas = serviceCadastro.getAll();
 
 		return ResponseEntity.status(200).body(listEmpresas);
-
 	}
 
-	@PostMapping // Map ONLY POST Requests
-	public ResponseEntity<Empresa> addNewUser(@RequestBody Empresa empresa) {
+	@PostMapping
+	public ResponseEntity<Empresa> newCompany(@RequestBody Empresa empresa) {
 
-		System.out.println("ende: " + empresa.getEndereco());
-
-		// endereco.save(empresa.getEndereco());
-		Empresa newEmpresa = service.newCadastro(empresa);
+		Empresa newEmpresa = serviceCadastro.newCadastro(empresa);
 
 		return ResponseEntity.status(200).body(newEmpresa);
 	}
-
-	// @GetMapping
-	// public List<Empresa> getAll() {
-	//
-	// List<Empresa> listEmpresas = service.getAll();
-	//
-	// return listEmpresas;
-	// }
-
-	// @GetMapping()
-	// public List<Endereco> getEndAll() {
-	//
-	// List<Endereco> listEndereco = serviceEnd.getAll();
-	//// List<Empresa> listEmpresas = null;
-	//
-	// System.out.println("listEmpresas: " + listEndereco.size());
-	//
-	// return listEndereco;
-	//
-	// }
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Empresa> removeCompany(@PathVariable Long id){
+		Empresa empresa  = serviceCadastro.deleteCadastro(id);
+		
+		return ResponseEntity.status(200).body(empresa);
+	}
 
 }
