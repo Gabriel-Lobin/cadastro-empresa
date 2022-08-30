@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router';
 import AppContext from '../../utils/AppContext';
+import { mainPath } from '../../utils/globalNames';
 
 const Login = () => {
 
@@ -8,7 +9,7 @@ const Login = () => {
 
     const login = () => {
         // generateJwt(email);
-        Navigate("/main", { replace: true });
+        Navigate(mainPath, { replace: true });
     }
 
     return (

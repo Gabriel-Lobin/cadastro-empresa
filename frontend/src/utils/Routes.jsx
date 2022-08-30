@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
 import AppContext from './AppContext';
+import { loginPath, mainPath } from './globalNames';
 
 function RoutesApp() {
     const { loggedIn } = useContext(AppContext);
@@ -12,13 +13,13 @@ function RoutesApp() {
             <Route exact path="/"
                 element={
                     loggedIn
-                        ? <Navigate to="/main" replace />
-                        : <Navigate to="/login" replace />
+                        ? <Navigate to={mainPath} replace />
+                        : <Navigate to={loginPath} replace />
                 } />
 
-            <Route path="/login" element={<Login />} />
-            {/* <Route path="/cadastro" /> */}
-            {/* <Route path="/main" /> */}
+            <Route path={loginPath} element={<Login />} />
+            {/* <Route path={cadastroPath} /> */}
+            {/* <Route path={mainPath} /> */}
 
             <Route path="*" element={<h1>PAGE NO FOUND !!!</h1>} />
 
