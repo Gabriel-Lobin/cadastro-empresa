@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router';
+import AppContext from '../../utils/AppContext';
 
 const Login = () => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { email, password, setEmail, setPassword } = useContext(AppContext);
 
     const login = () => {
         // generateJwt(email);
