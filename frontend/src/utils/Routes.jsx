@@ -18,8 +18,8 @@ function RoutesApp() {
                 } />
 
             <Route path={loginPath} element={<Login />} />
+            <Route path={mainPath} element={<h1>MAIN</h1>} />
             {/* <Route path={cadastroPath} /> */}
-            {/* <Route path={mainPath} /> */}
 
             <Route path="*" element={<h1>PAGE NO FOUND !!!</h1>} />
 

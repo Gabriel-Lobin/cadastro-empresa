@@ -1,18 +1,24 @@
 import React, { useState, useContext } from 'react';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import AppContext from '../../utils/AppContext';
 import { mainPath } from '../../utils/globalNames';
+import { LoginAxios } from '../../services/AxiosRest.js';
 
 const Login = () => {
+    const navigate = useNavigate();
+    
+    const { email, password, setEmail, setPassword, setToken, setLogged } = useContext(AppContext);
 
-    const { email, password, setEmail, setPassword } = useContext(AppContext);
-
-    const login = () => {
-        // generateJwt(email);
-        Navigate(mainPath, { replace: true });
+    const login = async (e) => {
+        e.preventDefault();
+        const tokenJwt = await LoginAxios(email, password);
+        console.log(tokenJwt.data);
+        setToken(tokenJwt.data);
+        setLogged(true);
+        navigate(mainPath, { replace: true });
     }
 
-    let [authMode, setAuthMode] = useState("signin")
+    const [authMode, setAuthMode] = useState("signin");
 
     const changeAuthMode = () => {
         setAuthMode(authMode === "signin" ? "signup" : "signin")
@@ -60,12 +66,12 @@ const Login = () => {
 
                         </div>
                         <div className="d-grid gap-2 mt-3">
-                            <button type="submit" className="btn btn-primary" onClick={() => login()}>
+                            <button type="submit" className="btn btn-primary" onClick={(e) => login(e)}>
                                 login
                             </button>
                         </div>
                         <p className="text-center mt-2">
-                            Forgot <a href="#">password?</a>
+                            Forgot <a href="/">password?</a>
                         </p>
                     </div>
                 </form>
@@ -123,12 +129,12 @@ const Login = () => {
                     </div>
 
                     <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary" onClick={() => login()}>
+                        <button type="submit" className="btn btn-primary" onClick={(e) => login(e)}>
                             Cadastrar
                         </button>
                     </div>
                     <p className="text-center mt-2">
-                        Forgot <a href="#">password?</a>
+                        Forgot <a href="/">password?</a>
                     </p>
                 </div>
             </form>
