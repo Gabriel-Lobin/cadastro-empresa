@@ -7,6 +7,7 @@ function Provider({ children }) {
     const [loggedIn, setLogged] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
 
     const contextValue = {
         loggedIn,
@@ -15,6 +16,8 @@ function Provider({ children }) {
         setEmail,
         password,
         setPassword,
+        token,
+        setToken
     };
 
     return (

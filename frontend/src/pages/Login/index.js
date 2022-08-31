@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router';
+import { LoginAxios } from '../../services/AxiosRest';
 import AppContext from '../../utils/AppContext';
 import { mainPath } from '../../utils/globalNames';
 
 const Login = () => {
 
-    const { email, password, setEmail, setPassword } = useContext(AppContext);
+    const { email, password, setEmail, setPassword, setToken } = useContext(AppContext);
 
-    const login = () => {
-        // generateJwt(email);
+    const login = async () => {
+        const tokenJwt = await LoginAxios(email, password);
+        setToken(tokenJwt);
         Navigate(mainPath, { replace: true });
     }
 
