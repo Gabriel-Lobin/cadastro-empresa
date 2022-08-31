@@ -6,13 +6,12 @@ import { LoginAxios } from '../../services/AxiosRest.js';
 
 const Login = () => {
     const navigate = useNavigate();
-    
+
     const { email, password, setEmail, setPassword, setToken, setLogged } = useContext(AppContext);
 
     const login = async (e) => {
         e.preventDefault();
         const tokenJwt = await LoginAxios(email, password);
-        console.log(tokenJwt.data);
         setToken(tokenJwt.data);
         setLogged(true);
         navigate(mainPath, { replace: true });
