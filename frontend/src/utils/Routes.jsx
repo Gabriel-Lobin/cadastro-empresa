@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from '../pages/Login';
+import Main from '../pages/Main';
 import AppContext from './AppContext';
 import { loginPath, mainPath } from './globalNames';
 
@@ -18,7 +19,7 @@ function RoutesApp() {
                 } />
 
             <Route path={loginPath} element={<Login />} />
-            <Route path={mainPath} element={<h1>MAIN</h1>} />
+            <Route path={mainPath} element={<Main />} />
             {/* <Route path={cadastroPath} /> */}
 
             <Route path="*" element={<h1>PAGE NO FOUND !!!</h1>} />

@@ -8,6 +8,20 @@ function Provider({ children }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
+    const [empresa, setEmpresa] = useState({
+        razaoSocial: '',
+        nomeFantasia: '',
+        cnpj: '',
+        telefone: '',
+        endereco: {
+            logradouro: '',
+            numero: '',
+            complemento:'',
+            bairro:'',
+            cidade: '',
+            estado: ''
+        }
+    });
 
     const contextValue = {
         loggedIn,
@@ -17,7 +31,9 @@ function Provider({ children }) {
         password,
         setPassword,
         token,
-        setToken
+        setToken,
+        empresa,
+        setEmpresa
     };
 
     return (
