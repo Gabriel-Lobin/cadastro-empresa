@@ -5,6 +5,7 @@ function Provider({ children }) {
     // https://v5.reactrouter.com/web/api/Redirect
 
     const [loggedIn, setLogged] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -37,7 +38,9 @@ function Provider({ children }) {
         empresa,
         setEmpresa,
         listEmpresas,
-        setListEmpresas
+        setListEmpresas,
+        buttonClicked,
+        setButtonClicked
     };
 
     return (

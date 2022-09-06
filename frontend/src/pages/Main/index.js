@@ -5,16 +5,14 @@ import { GetListaEmpresasAxios } from "../../services/AxiosRest";
 import AppContext from "../../utils/AppContext";
 
 const Main = () => {
-    const { listEmpresas, setListEmpresas } = useContext(AppContext);
+    const { buttonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
 
     useEffect(() => {
         mainAxios();
-
-    }, [])
+    }, [buttonClicked]);
 
     const mainAxios = async () => {
         const empresas = await GetListaEmpresasAxios();
-        console.log(empresas.data);
         setListEmpresas(empresas.data);
     }
 
