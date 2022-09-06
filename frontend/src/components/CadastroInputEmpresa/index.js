@@ -28,53 +28,140 @@ const CadastroInputEmpresa = () => {
     }
 
     return (
-        <div>
-            <div>
-                <label htmlFor="razaoSocial">
-                    Razao Social
-                    <input type="text" name="razaoSocial" value={empresa.razaoSocial} id="razaoSocial" onChange={(e) => handleChange(e)} />
-                </label>
-                <label htmlFor="nomeFantasia">
-                    Nome Fantasia
-                    <input type="text" name="nomeFantasia" value={empresa.nomeFantasia} id="nomeFantasia" onChange={(e) => handleChange(e)} />
-                </label>
-                <label htmlFor="cnpj">
-                    CNPJ
-                    <input type="text" name="cnpj" value={empresa.cnpj} id="cnpj" onChange={(e) => handleChange(e)} />
-                </label>
-                <label htmlFor="telefone">
-                    Telefone
-                    <input type="text" name="telefone" value={empresa.telefone} id="telefone" onChange={(e) => handleChange(e)} />
-                </label>
-            </div>
-            <div>
-                <label htmlFor="logradouro">
-                    Logradouro
-                    <input type="text" name="logradouro" value={empresa.endereco.logradouro} id="logradouro" onChange={(e) => handleChangeEndereco(e)} />
-                </label>
-                <label htmlFor="numero">
-                    Numero
-                    <input type="text" name="numero" value={empresa.endereco.numero} id="numero" onChange={(e) => handleChangeEndereco(e)} />
-                </label>
-                <label htmlFor="complemento">
-                    Complemento
-                    <input type="text" name="complemento" value={empresa.endereco.complemento} id="complemento" onChange={(e) => handleChangeEndereco(e)} />
-                </label>
-                <label htmlFor="bairro">
-                    Bairro
-                    <input type="text" name="bairro" value={empresa.endereco.bairro} id="bairro" onChange={(e) => handleChangeEndereco(e)} />
-                </label>
-                <label htmlFor="cidade">
-                    Cidade
-                    <input type="text" name="cidade" value={empresa.endereco.cidade} id="cidade" onChange={(e) => handleChangeEndereco(e)} />
-                </label><label htmlFor="estado">
-                    Estado
-                    <input type="text" name="estado" value={empresa.endereco.estado} id="estado" onChange={(e) => handleChangeEndereco(e)} />
-                </label>
-            </div>
-            <button type="button" onClick={() => CadastrarEmpresa()}>
-                Cadastrar
-            </button>
+        <div className="container">
+            <form>
+                <fieldset class="form-group border p-3">
+                    <legend>Empresa</legend>
+                    <div className="container">
+                        <div class="form-group">
+                            <label htmlFor="razaoSocial">Razão Social</label>
+                            <input type="text"
+                                class="form-control"
+                                id="razaoSocial"
+                                name="razaoSocial"
+                                aria-describedby="razaoSocial"
+                                placeholder="Enter razão social"
+                                value={empresa.razaoSocial}
+                                onChange={(e) => handleChange(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="nomeFantasia">Nome Fantasia</label>
+                            <input type="text"
+                                class="form-control"
+                                id="nomeFantasia"
+                                name="nomeFantasia"
+                                aria-describedby="nomeFantasia"
+                                placeholder="Enter nome fantasia"
+                                value={empresa.nomeFantasia}
+                                onChange={(e) => handleChange(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="cnpj">CNPJ</label>
+                            <input type="text"
+                                class="form-control"
+                                id="cnpj"
+                                name="cnpj"
+                                aria-describedby="cnpj"
+                                placeholder="Enter nome cnpj"
+                                value={empresa.cnpj}
+                                onChange={(e) => handleChange(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="telefone">Telefone</label>
+                            <input type="text"
+                                class="form-control"
+                                id="telefone"
+                                name="telefone"
+                                aria-describedby="telefone"
+                                placeholder="Enter telefone"
+                                value={empresa.telefone}
+                                onChange={(e) => handleChange(e)} />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <br></br>
+
+                <fieldset class="form-group border p-3">
+                    <legend>Endereco</legend>
+                    <div className="container">
+                        <div class="form-group">
+                            <label htmlFor="logradouro">Logradouro</label>
+                            <input type="text"
+                                class="form-control"
+                                id="logradouro"
+                                name="logradouro"
+                                aria-describedby="logradouro"
+                                placeholder="Enter logradouro"
+                                value={empresa.endereco.logradouro}
+                                onChange={(e) => handleChangeEndereco(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="numero">Numero</label>
+                            <input type="text"
+                                class="form-control"
+                                id="numero"
+                                name="numero"
+                                aria-describedby="numero"
+                                placeholder="Enter numero"
+                                value={empresa.endereco.numero}
+                                onChange={(e) => handleChangeEndereco(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="complemento">Complemento</label>
+                            <input type="text"
+                                class="form-control"
+                                id="complemento"
+                                name="complemento"
+                                aria-describedby="complemento"
+                                placeholder="Enter complemento"
+                                value={empresa.endereco.complemento}
+                                onChange={(e) => handleChangeEndereco(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="bairro">Bairro</label>
+                            <input type="text"
+                                class="form-control"
+                                id="bairro"
+                                name="bairro"
+                                aria-describedby="bairro"
+                                placeholder="Enter bairro"
+                                value={empresa.endereco.bairro}
+                                onChange={(e) => handleChangeEndereco(e)} />
+                        </div>
+
+                        <div class="form-group">
+                            <label htmlFor="estado">Estado</label>
+                            <input type="text"
+                                class="form-control"
+                                id="estado"
+                                name="estado"
+                                aria-describedby="estado"
+                                placeholder="Enter estado"
+                                value={empresa.endereco.estado}
+                                onChange={(e) => handleChangeEndereco(e)} />
+                        </div>
+
+                    </div>
+                </fieldset>
+
+
+
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onClick={() => CadastrarEmpresa()}>
+                    Cadastrar
+                </button>
+            </form>
+
         </div>
     );
 }
