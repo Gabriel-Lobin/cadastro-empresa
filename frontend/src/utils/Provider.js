@@ -5,6 +5,7 @@ function Provider({ children }) {
     // https://v5.reactrouter.com/web/api/Redirect
 
     const [loggedIn, setLogged] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -16,12 +17,14 @@ function Provider({ children }) {
         endereco: {
             logradouro: '',
             numero: '',
-            complemento:'',
-            bairro:'',
+            complemento: '',
+            bairro: '',
             cidade: '',
             estado: ''
         }
     });
+
+    const [listEmpresas, setListEmpresas] = useState([]);
 
     const contextValue = {
         loggedIn,
@@ -33,7 +36,11 @@ function Provider({ children }) {
         token,
         setToken,
         empresa,
-        setEmpresa
+        setEmpresa,
+        listEmpresas,
+        setListEmpresas,
+        buttonClicked,
+        setButtonClicked
     };
 
     return (

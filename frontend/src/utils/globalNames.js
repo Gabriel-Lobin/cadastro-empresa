@@ -7,4 +7,4 @@ export const cadastroPath = "/cadastro";
 export const url = "http://localhost:8080";
 export const cadastroBackend = "/login/cadastro";
 export const loginBackend = "/login";
-export const cadastroEmpresaBackend = "/empresa";
+export const empresaBackend = "/empresa";

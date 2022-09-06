@@ -4,7 +4,7 @@ import AppContext from "../../utils/AppContext";
 
 const CadastroInputEmpresa = () => {
 
-    const { empresa, setEmpresa } = useContext(AppContext);
+    const { empresa, setEmpresa, buttonClicked, setButtonClicked } = useContext(AppContext);
 
     const handleChange = (e) => {
         setEmpresa({
@@ -23,8 +23,9 @@ const CadastroInputEmpresa = () => {
         });
     }
 
-    const CadastrarEmpresa = () => {
-        CadastroEmpresaAxios(empresa);
+    const CadastrarEmpresa = async () => {
+        await CadastroEmpresaAxios(empresa);
+        setButtonClicked(!buttonClicked);
     }
 
     return (
