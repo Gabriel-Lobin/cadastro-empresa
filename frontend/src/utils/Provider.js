@@ -16,12 +16,14 @@ function Provider({ children }) {
         endereco: {
             logradouro: '',
             numero: '',
-            complemento:'',
-            bairro:'',
+            complemento: '',
+            bairro: '',
             cidade: '',
             estado: ''
         }
     });
+
+    const [listEmpresas, setListEmpresas] = useState([]);
 
     const contextValue = {
         loggedIn,
@@ -33,7 +35,9 @@ function Provider({ children }) {
         token,
         setToken,
         empresa,
-        setEmpresa
+        setEmpresa,
+        listEmpresas,
+        setListEmpresas
     };
 
     return (

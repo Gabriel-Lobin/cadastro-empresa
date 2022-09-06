@@ -1,5 +1,7 @@
 import axios from "axios";
-import { cadastroBackend, cadastroEmpresaBackend, loginBackend, url } from "../utils/globalNames";
+import { cadastroBackend, empresaBackend, loginBackend, url } from "../utils/globalNames";
+
+// Usuário
 
 export const CadastroAxios = async (name, password) => {
     const cadastro = await axios.post(`${url}${cadastroBackend}`,
@@ -23,10 +25,18 @@ export const LoginAxios = async (name, password) => {
     return token;
 }
 
+// Empresa
+
 export const CadastroEmpresaAxios = async (empresa) => {
-    const empresaCriada = await axios.post(`${url}${cadastroEmpresaBackend}`,
+    const empresaCriada = await axios.post(`${url}${empresaBackend}`,
         empresa
     );
 
     return empresaCriada;
+}
+
+export const GetListaEmpresasAxios = async () => {
+    const ListEmpresas = await axios.get(`${url}${empresaBackend}`);
+
+    return ListEmpresas;
 }
