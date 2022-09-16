@@ -40,3 +40,9 @@ export const GetListaEmpresasAxios = async () => {
 
     return ListEmpresas;
 }
+
+export const DeleteEmpresaAxios = async (id) => {
+    const empresa = await axios.delete(`${url}${empresaBackend}/${id}`);
+
+    return empresa;
+}
