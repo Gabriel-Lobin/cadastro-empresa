@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useEffect } from "react";
 import CadastroInputEmpresa from "../../components/CadastroInputEmpresa";
-import { GetListaEmpresasAxios } from "../../services/AxiosRest";
+import { DeleteEmpresaAxios, GetListaEmpresasAxios } from "../../services/AxiosRest";
 import AppContext from "../../utils/AppContext";
 
 const Main = () => {
-    const { buttonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
+    const { buttonClicked, setButtonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
 
     useEffect(() => {
         mainAxios();
@@ -16,19 +16,24 @@ const Main = () => {
         setListEmpresas(empresas.data);
     }
 
+    const deletaEmpresa = async (id) => {
+        await DeleteEmpresaAxios(id);
+        setButtonClicked(!buttonClicked);
+    }
+
     return (
         <div>
             <CadastroInputEmpresa />
-            
+
             <br />
-            
+
             <div className="container">
                 <div class="card">
                     <div class="card-body">
-                    <h3 style={{textAlign: "center"}}>Empresas Cadastradas</h3>
+                        <h3 style={{ textAlign: "center" }}>Empresas Cadastradas</h3>
                     </div>
                 </div>
-                
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -40,7 +45,7 @@ const Main = () => {
                         </tr>
                     </thead>
                     {
-                        listEmpresas.map(({ razaoSocial, nomeFantasia, cnpj, telefone }, index) => {
+                        listEmpresas.map(({ id, razaoSocial, nomeFantasia, cnpj, telefone }, index) => {
                             return (
                                 <tr key={index}>
                                     <th scope="row">{index}</th>
@@ -48,6 +53,12 @@ const Main = () => {
                                     <td>{nomeFantasia}</td>
                                     <td>{cnpj}</td>
                                     <td>{telefone}</td>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        onClick={() => deletaEmpresa(id)}>
+                                        Excluir
+                                    </button>
                                 </tr>
                             );
                         })
