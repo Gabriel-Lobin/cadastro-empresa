@@ -28,13 +28,13 @@ const Main = () => {
             <br />
 
             <div className="container">
-                <div class="card">
-                    <div class="card-body">
+                <div className="card">
+                    <div className="card-body">
                         <h3 style={{ textAlign: "center" }}>Empresas Cadastradas</h3>
                     </div>
                 </div>
 
-                <table class="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -47,19 +47,24 @@ const Main = () => {
                     {
                         listEmpresas.map(({ id, razaoSocial, nomeFantasia, cnpj, telefone }, index) => {
                             return (
-                                <tr key={index}>
-                                    <th scope="row">{index}</th>
-                                    <td>{razaoSocial}</td>
-                                    <td>{nomeFantasia}</td>
-                                    <td>{cnpj}</td>
-                                    <td>{telefone}</td>
-                                    <button
-                                        type="button"
-                                        class="btn btn-primary"
-                                        onClick={() => deletaEmpresa(id)}>
-                                        Excluir
-                                    </button>
-                                </tr>
+                                <tbody key={index}>
+                                    <tr>
+                                        <th scope="row">{index}</th>
+                                        <td>{razaoSocial}</td>
+                                        <td>{nomeFantasia}</td>
+                                        <td>{cnpj}</td>
+                                        <td>{telefone}</td>
+                                        <td>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={() => deletaEmpresa(id)}>
+                                            Excluir
+                                        </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
                             );
                         })
                     }

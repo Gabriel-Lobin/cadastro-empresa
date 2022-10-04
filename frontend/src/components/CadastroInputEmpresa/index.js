@@ -6,7 +6,7 @@ const CadastroInputEmpresa = () => {
 
     const { empresa, setEmpresa, buttonClicked, setButtonClicked } = useContext(AppContext);
 
-    const listEstado = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES"];
+    const listEstado = ["Selecione um estado", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES"];
 
     const handleChange = (e) => {
         setEmpresa({
@@ -33,15 +33,15 @@ const CadastroInputEmpresa = () => {
     return (
         <div className="container">
             <form>
-                <fieldset class="form-group border p-3">
+                <fieldset className="form-group border p-3">
                     <legend>Empresa</legend>
                     <div className="container">
 
-                        <div class="row d-flex">
-                            <div class="form-group col-md-6">
+                        <div className="row d-flex">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="razaoSocial">Razão Social</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="razaoSocial"
                                     name="razaoSocial"
                                     aria-describedby="razaoSocial"
@@ -50,10 +50,10 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChange(e)} />
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="nomeFantasia">Nome Fantasia</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="nomeFantasia"
                                     name="nomeFantasia"
                                     aria-describedby="nomeFantasia"
@@ -63,11 +63,11 @@ const CadastroInputEmpresa = () => {
                             </div>
                         </div>
 
-                        <div class="row d-flex">
-                            <div class="form-group col-md-6">
+                        <div className="row d-flex">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="cnpj">CNPJ</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="cnpj"
                                     name="cnpj"
                                     aria-describedby="cnpj"
@@ -76,10 +76,10 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChange(e)} />
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="telefone">Telefone</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="telefone"
                                     name="telefone"
                                     aria-describedby="telefone"
@@ -93,15 +93,15 @@ const CadastroInputEmpresa = () => {
 
                 <br></br>
 
-                <fieldset class="form-group border p-3">
+                <fieldset className="form-group border p-3">
                     <legend>Endereco</legend>
                     <div className="container">
 
-                        <div class="row d-flex">
-                            <div class="form-group col-md-6">
+                        <div className="row d-flex">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="logradouro">Logradouro</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="logradouro"
                                     name="logradouro"
                                     aria-describedby="logradouro"
@@ -110,10 +110,10 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChangeEndereco(e)} />
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div className="form-group col-md-3">
                                 <label htmlFor="numero">Numero</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="numero"
                                     name="numero"
                                     aria-describedby="numero"
@@ -122,10 +122,10 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChangeEndereco(e)} />
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div className="form-group col-md-3">
                                 <label htmlFor="complemento">Complemento</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="complemento"
                                     name="complemento"
                                     aria-describedby="complemento"
@@ -135,11 +135,11 @@ const CadastroInputEmpresa = () => {
                             </div>
                         </div>
 
-                        <div class="row d-flex">
-                            <div class="form-group col-md-6">
+                        <div className="row d-flex">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="bairro">Bairro</label>
                                 <input type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="bairro"
                                     name="bairro"
                                     aria-describedby="bairro"
@@ -148,15 +148,13 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChangeEndereco(e)} />
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div className="form-group col-md-3">
                                 <label htmlFor="estado">Estado</label>
-                                <select id="estado" name="estado" class="form-select" aria-label="Default select example"
-                                    value={empresa.endereco.estado} 
+                                <select id="estado" name="estado" className="form-select" aria-label="Default select example" defaultValue="Selecione um estado"
                                     onChange={(e) => handleChangeEndereco(e)}>
-                                    <option selected>Selecione um estado</option>
                                     {listEstado.map((item, index) => {
                                         return(
-                                            <option value="{index}">{item}</option>
+                                            <option key={index} value="{index}">{item}</option>
                                         )
                                     })}                                
                                 </select>
@@ -168,7 +166,7 @@ const CadastroInputEmpresa = () => {
 
                 <button
                     type="button"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     onClick={() => CadastrarEmpresa()}>
                     Cadastrar
                 </button>
