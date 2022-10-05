@@ -94,7 +94,7 @@ const CadastroInputEmpresa = () => {
                 <br></br>
 
                 <fieldset className="form-group border p-3">
-                    <legend>Endereco</legend>
+                    <legend>Endereço</legend>
                     <div className="container">
 
                         <div className="row d-flex">
