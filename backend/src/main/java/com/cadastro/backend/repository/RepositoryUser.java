@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.cadastro.backend.model.User;
 
 @Repository
-public interface RepositoryUser extends JpaRepository<User, Long>{
-	
-	List<User> findByName(String name);
+public interface RepositoryUser extends JpaRepository<User, Long> {
+
+	List<User> findByEmail(String email);
 
 }

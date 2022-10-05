@@ -25,7 +25,7 @@ public class ControllerUser {
 	public ResponseEntity<String> login(@RequestBody User user) {
 		String passwordHash = Md5Hash.Md5HashConvert(user.getPassword());
 
-		serviceUser.loginAccount(user.getName(), passwordHash);
+		serviceUser.loginAccount(user.getEmail(), passwordHash);
 
 		String token = JwtValidate.createToken(user.getName());
 
@@ -37,7 +37,7 @@ public class ControllerUser {
 
 		String passwordHash = Md5Hash.Md5HashConvert(user.getPassword());
 
-		serviceUser.cadastrarUsuario(user.getName(), passwordHash);
+		serviceUser.cadastrarUsuario(user.getName(), user.getEmail(), passwordHash);
 
 		return ResponseEntity.status(201).body("Cadastrado com sucesso!");
 	}
