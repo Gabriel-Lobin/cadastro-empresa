@@ -1,0 +1,19 @@
+.modal{
+    background-color: white;
+    display: none;
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    left: 200px;
+    top: 40px;
+    color: black;
+}
+
+.show{
+    display: block !important;
+  }
+
+.label{  
+    color: blue;
+    display: flex;
+}
