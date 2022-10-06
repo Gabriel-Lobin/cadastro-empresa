@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Modal from 'react-modal';
 import { useEffect } from "react";
 import CadastroInputEmpresa from "../../components/CadastroInputEmpresa";
-import { DeleteEmpresaAxios, GetListaEmpresasAxios } from "../../services/AxiosRest";
+import { DeleteEmpresaAxios, EditaEmpresaAxios, GetListaEmpresasAxios } from "../../services/AxiosRest";
 import AppContext from "../../utils/AppContext";
 import "./Modal.css";
 
@@ -21,8 +21,9 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Main = () => {
-    const { toEdit, setToEdited, buttonClicked, setButtonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
+    const { empresaEdicao, setEmpresaEdicao, toEdit, setToEdited, buttonClicked, setButtonClicked, listEmpresas, setListEmpresas, INITIAL_EMPRESA } = useContext(AppContext);
 
+    const [modalIsOpen, setIsOpen] = React.useState(false);
 
     useEffect(() => {
         mainAxios();
@@ -39,18 +40,35 @@ const Main = () => {
     }
 
     const editarEmpresa = async (id) => {
-
-        await DeleteEmpresaAxios(id);
+        await EditaEmpresaAxios(id, empresaEdicao);
+        handleCloseModal();
         setButtonClicked(!buttonClicked);
     }
 
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const handleChange = (e) => {
+        setEmpresaEdicao({
+            ...empresaEdicao,
+            [e.target.name]: e.target.value
+        });
+    }
 
-    function handleOpenModal() {
+    const handleChangeEndereco = (e) => {
+        setEmpresaEdicao({
+            ...empresaEdicao,
+            endereco: {
+                ...empresaEdicao.endereco,
+                [e.target.name]: e.target.value
+            }
+        });
+    }
+
+    function handleOpenModal(empresa) {
+        setEmpresaEdicao(empresa);
         setIsOpen(true);
     }
 
     function handleCloseModal() {
+        setEmpresaEdicao(INITIAL_EMPRESA);
         setToEdited(false);
         setIsOpen(false);
     }
@@ -84,7 +102,8 @@ const Main = () => {
                         </tr>
                     </thead>
                     {
-                        listEmpresas.map(({ id, razaoSocial, nomeFantasia, cnpj, telefone, endereco }, index) => {
+                        listEmpresas.map((empresaCard, index) => {
+                            const { id, razaoSocial, nomeFantasia, cnpj, telefone } = empresaCard;
                             return (
                                 <tbody key={index}>
                                     <tr>
@@ -97,13 +116,13 @@ const Main = () => {
                                             <button
                                                 type="button"
                                                 className="btn btn-primary"
-                                                onClick={handleOpenModal}>
+                                                onClick={() => handleOpenModal(empresaCard)}>
                                                 + info
                                             </button>
                                             <Modal
                                                 isOpen={modalIsOpen}
-                                                onAfterOpen={afterOpenModal}
-                                                onRequestClose={handleCloseModal}
+                                                onAfterOpen={() => afterOpenModal()}
+                                                onRequestClose={() => handleCloseModal()}
                                                 style={customStyles}
                                                 contentLabel="Example Modal"
                                             >
@@ -113,44 +132,44 @@ const Main = () => {
                                                     <legend>Dados</legend>
                                                     <div className="label">
                                                         <label htmlFor="razModal">Razão Social: </label>
-                                                        <input type="text" id="razModal" value={razaoSocial} disabled={!toEdit}></input>
+                                                        <input type="text" id="razModal" name="razaoSocial" onChange={(e) => handleChange(e)} value={empresaEdicao.razaoSocial} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="nomeModal">Nome Fantasia: </label>
-                                                        <input type="text" id="nomeModal" value={nomeFantasia} disabled={!toEdit}></input>
+                                                        <input type="text" id="nomeModal" name="nomeFantasia" onChange={(e) => handleChange(e)} value={empresaEdicao.nomeFantasia} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="cpnjModal">CNPJ: </label>
-                                                        <input type="text" id="cpnjModal" value={cnpj} disabled={!toEdit}></input>
+                                                        <input type="text" id="cpnjModal" name="cnpj" onChange={(e) => handleChange(e)} value={empresaEdicao.cnpj} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="telModal">Telefone: </label>
-                                                        <input type="text" id="telModal" value={telefone} disabled={!toEdit}></input>
+                                                        <input type="text" id="telModal" name="telefone" onChange={(e) => handleChange(e)} value={empresaEdicao.telefone} disabled={!toEdit}></input>
                                                     </div>
                                                     <legend>Endereço</legend>
                                                     <div className="label">
                                                         <label htmlFor="lgModal">Logradouro: </label>
-                                                        <input type="text" id="lgModal" value={endereco.logradouro} disabled={!toEdit}></input>
+                                                        <input type="text" id="lgModal" name="logradouro" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.logradouro} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="nuModal">Numero: </label>
-                                                        <input type="text" id="nuModal" value={endereco.numero} disabled={!toEdit}></input>
+                                                        <input type="text" id="nuModal" name="numero" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.numero} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="coModal">Complemento: </label>
-                                                        <input type="text" id="coModal" value={endereco.complemento} disabled={!toEdit}></input>
+                                                        <input type="text" id="coModal" name="complemento" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.complemento} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="baModal">Bairro: </label>
-                                                        <input type="text" id="baModal" value={endereco.bairro} disabled={!toEdit}></input>
+                                                        <input type="text" id="baModal" name="bairro" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.bairro} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="ciModal">Cidade: </label>
-                                                        <input type="text" id="ciModal" value={endereco.cidade} disabled={!toEdit}></input>
+                                                        <input type="text" id="ciModal" name="cidade" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.cidade} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="esModal">Estado: </label>
-                                                        <input type="text" id="esModal" value={endereco.estado} disabled={!toEdit}></input>
+                                                        <input type="text" id="esModal" name="estado" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.estado} disabled={!toEdit}></input>
                                                     </div>
                                                 </fieldset>
                                                 <div>

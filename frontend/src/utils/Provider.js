@@ -26,6 +26,8 @@ function Provider({ children }) {
     const [token, setToken] = useState('');
     const [empresa, setEmpresa] = useState(INITIAL_EMPRESA);
 
+    const [empresaEdicao, setEmpresaEdicao] = useState(INITIAL_EMPRESA);
+
     const [toEdit, setToEdited] = useState(false);
 
     const [listEmpresas, setListEmpresas] = useState([]);
@@ -47,7 +49,9 @@ function Provider({ children }) {
         buttonClicked,
         setButtonClicked,
         toEdit,
-        setToEdited
+        setToEdited,
+        empresaEdicao,
+        setEmpresaEdicao
     };
 
     return (
