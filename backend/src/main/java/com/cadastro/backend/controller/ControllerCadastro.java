@@ -50,8 +50,8 @@ public class ControllerCadastro {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Empresa> updateCompany(@PathVariable Long id, @RequestBody RequestEmpresa requestEmpresa) {
-		Empresa updateEmpresa = serviceCadastro.updateCadastro(id, requestEmpresa);
+	public ResponseEntity<Empresa> updateCompany(@PathVariable Long id, @RequestBody Empresa empresa) {
+		Empresa updateEmpresa = serviceCadastro.updateCadastro(id, empresa);
 
 		return ResponseEntity.status(200).body(updateEmpresa);
 	}

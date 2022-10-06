@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cadastro.backend.model.User;
 import com.cadastro.backend.repository.RepositoryUser;
+import com.cadastro.backend.utils.Md5Hash;
 
 @Service
 public class ServiceUser {
@@ -23,7 +24,9 @@ public class ServiceUser {
 
         User usuario = usuarios.get(0);
 
-        if (!usuario.getPassword().equals(password)) {
+        String passwordHash = Md5Hash.Md5HashConvert(usuario.getPassword());
+
+        if (!passwordHash.equals(password)) {
 
         }
     }
