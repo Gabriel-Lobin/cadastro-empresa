@@ -21,7 +21,8 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const Main = () => {
-    const { buttonClicked, setButtonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
+    const { toEdit, setToEdited, buttonClicked, setButtonClicked, listEmpresas, setListEmpresas } = useContext(AppContext);
+
 
     useEffect(() => {
         mainAxios();
@@ -37,6 +38,12 @@ const Main = () => {
         setButtonClicked(!buttonClicked);
     }
 
+    const editarEmpresa = async (id) => {
+
+        await DeleteEmpresaAxios(id);
+        setButtonClicked(!buttonClicked);
+    }
+
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
     function handleOpenModal() {
@@ -44,6 +51,7 @@ const Main = () => {
     }
 
     function handleCloseModal() {
+        setToEdited(false);
         setIsOpen(false);
     }
 
@@ -99,43 +107,79 @@ const Main = () => {
                                                 style={customStyles}
                                                 contentLabel="Example Modal"
                                             >
-                                                <h2>Cadastro</h2>
-                                                <button onClick={handleCloseModal}>close</button>
-                                                <div></div>
-                                                <div className="label" >
-                                                    <p>{razaoSocial}</p>
-                                                </div>
-                                                <div className="label">
-                                                    <p>{nomeFantasia}</p>
-                                                </div>
+                                                <h2>Info</h2>
 
                                                 <fieldset className="form-group border p-3">
+                                                    <legend>Dados</legend>
+                                                    <div className="label">
+                                                        <label htmlFor="razModal">Razão Social: </label>
+                                                        <input type="text" id="razModal" value={razaoSocial} disabled={!toEdit}></input>
+                                                    </div>
+                                                    <div className="label">
+                                                        <label htmlFor="nomeModal">Nome Fantasia: </label>
+                                                        <input type="text" id="nomeModal" value={nomeFantasia} disabled={!toEdit}></input>
+                                                    </div>
+                                                    <div className="label">
+                                                        <label htmlFor="cpnjModal">CNPJ: </label>
+                                                        <input type="text" id="cpnjModal" value={cnpj} disabled={!toEdit}></input>
+                                                    </div>
+                                                    <div className="label">
+                                                        <label htmlFor="telModal">Telefone: </label>
+                                                        <input type="text" id="telModal" value={telefone} disabled={!toEdit}></input>
+                                                    </div>
                                                     <legend>Endereço</legend>
                                                     <div className="label">
                                                         <label htmlFor="lgModal">Logradouro: </label>
-                                                        <input type="text" id="lgModal" value={endereco.logradouro} disabled></input>
+                                                        <input type="text" id="lgModal" value={endereco.logradouro} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="nuModal">Numero: </label>
-                                                        <input type="text" id="nuModal" value={endereco.numero} disabled></input>
+                                                        <input type="text" id="nuModal" value={endereco.numero} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="coModal">Complemento: </label>
-                                                        <input type="text" id="coModal" value={endereco.complemento} disabled></input>
+                                                        <input type="text" id="coModal" value={endereco.complemento} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="baModal">Bairro: </label>
-                                                        <input type="text" id="baModal" value={endereco.bairro} disabled></input>
+                                                        <input type="text" id="baModal" value={endereco.bairro} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="ciModal">Cidade: </label>
-                                                        <input type="text" id="ciModal" value={endereco.cidade} disabled></input>
+                                                        <input type="text" id="ciModal" value={endereco.cidade} disabled={!toEdit}></input>
                                                     </div>
                                                     <div className="label">
                                                         <label htmlFor="esModal">Estado: </label>
-                                                        <input type="text" id="esModal" value={endereco.estado} disabled></input>
+                                                        <input type="text" id="esModal" value={endereco.estado} disabled={!toEdit}></input>
                                                     </div>
                                                 </fieldset>
+                                                <div>
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-primary"
+                                                        onClick={handleCloseModal}>
+                                                        Close
+                                                    </button>
+                                                    {
+                                                        !toEdit
+                                                            ? (
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-primary"
+                                                                    onClick={() => setToEdited(!toEdit)}>
+                                                                    Editar
+                                                                </button>
+                                                            )
+                                                            : (
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-primary"
+                                                                    onClick={() => editarEmpresa(id)}>
+                                                                    Confirmar
+                                                                </button>
+                                                            )
+                                                    }
+                                                </div>
                                             </Modal>
                                         </td>
                                         <td>

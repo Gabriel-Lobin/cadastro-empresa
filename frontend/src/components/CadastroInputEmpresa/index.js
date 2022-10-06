@@ -4,7 +4,7 @@ import AppContext from "../../utils/AppContext";
 
 const CadastroInputEmpresa = () => {
 
-    const { empresa, setEmpresa, buttonClicked, setButtonClicked } = useContext(AppContext);
+    const { empresa, setEmpresa, buttonClicked, setButtonClicked, INITIAL_EMPRESA } = useContext(AppContext);
 
     const listEstado = ["Selecione um estado", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES"];
 
@@ -26,6 +26,7 @@ const CadastroInputEmpresa = () => {
     }
 
     const CadastrarEmpresa = async () => {
+        setEmpresa(INITIAL_EMPRESA);
         await CadastroEmpresaAxios(empresa);
         setButtonClicked(!buttonClicked);
     }
@@ -148,15 +149,29 @@ const CadastroInputEmpresa = () => {
                                     onChange={(e) => handleChangeEndereco(e)} />
                             </div>
 
+
+                            <div className="form-group col-md-3">
+                                <label htmlFor="cidade">Cidade</label>
+                                <input type="text"
+                                    className="form-control"
+                                    id="cidade"
+                                    name="cidade"
+                                    aria-describedby="cidade"
+                                    placeholder="Enter cidade"
+                                    value={empresa.endereco.cidade}
+                                    onChange={(e) => handleChangeEndereco(e)} />
+                            </div>
+
                             <div className="form-group col-md-3">
                                 <label htmlFor="estado">Estado</label>
                                 <select id="estado" name="estado" className="form-select" aria-label="Default select example" defaultValue="Selecione um estado"
                                     onChange={(e) => handleChangeEndereco(e)}>
-                                    {listEstado.map((item, index) => {
-                                        return(
-                                            <option key={index} value="{index}">{item}</option>
-                                        )
-                                    })}                                
+                                    {
+                                        listEstado.map((item, index) => {
+                                            return (
+                                                <option key={index} value={item}>{item}</option>
+                                            )
+                                        })}
                                 </select>
                             </div>
                         </div>
