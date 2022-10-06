@@ -46,3 +46,11 @@ export const DeleteEmpresaAxios = async (id) => {
 
     return empresa;
 }
+
+export const EditaEmpresaAxios = async (id, empresa) => {
+    const empresaEditada = await axios.put(`${url}${empresaBackend}/${id}`,
+        empresa
+    );
+
+    return empresaEditada;
+}

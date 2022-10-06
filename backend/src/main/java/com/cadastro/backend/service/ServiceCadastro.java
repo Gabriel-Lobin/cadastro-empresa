@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cadastro.backend.model.Empresa;
-import com.cadastro.backend.model.RequestEmpresa;
 import com.cadastro.backend.repository.RepositoryCadastro;
 
 @Service
@@ -46,20 +45,27 @@ public class ServiceCadastro {
 		return empresaDelete;
 	}
 
-	public Empresa updateCadastro(Long id, RequestEmpresa requestData) {
+	public Empresa updateCadastro(Long id, Empresa requestData) {
 		Optional<Empresa> empresaFinded = repositoryCadastro.findById(id);
 
 		if (empresaFinded.isEmpty()) {
 
 		}
-		
+
 		Empresa empresaUpdate = empresaFinded.get();
-		
+
 		empresaUpdate.setRazaoSocial(requestData.getRazaoSocial());
 		empresaUpdate.setNomeFantasia(requestData.getNomeFantasia());
 		empresaUpdate.setCnpj(requestData.getCnpj());
 		empresaUpdate.setTelefone(requestData.getTelefone());
-				
+
+		empresaUpdate.getEndereco().setLogradouro(requestData.getEndereco().getLogradouro());
+		empresaUpdate.getEndereco().setNumero(requestData.getEndereco().getNumero());
+		empresaUpdate.getEndereco().setBairro(requestData.getEndereco().getBairro());
+		empresaUpdate.getEndereco().setCidade(requestData.getEndereco().getCidade());
+		empresaUpdate.getEndereco().setEstado(requestData.getEndereco().getEstado());
+		empresaUpdate.getEndereco().setComplemento(requestData.getEndereco().getComplemento());
+
 		Empresa resultCadastro = repositoryCadastro.save(empresaUpdate);
 
 		return resultCadastro;
