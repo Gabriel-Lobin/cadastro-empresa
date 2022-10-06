@@ -14,10 +14,10 @@ export const CadastroAxios = async (name, password) => {
     return cadastro;
 }
 
-export const LoginAxios = async (name, password) => {
+export const LoginAxios = async (email, password) => {
     const token = await axios.post(`${url}${loginBackend}`,
         {
-            name,
+            email,
             password
         }
     );
