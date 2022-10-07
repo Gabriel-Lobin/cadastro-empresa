@@ -4,12 +4,7 @@ import AppContext from './AppContext';
 function Provider({ children }) {
     // https://v5.reactrouter.com/web/api/Redirect
 
-    const [loggedIn, setLogged] = useState(false);
-    const [buttonClicked, setButtonClicked] = useState(true);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [token, setToken] = useState('');
-    const [empresa, setEmpresa] = useState({
+    const INITIAL_EMPRESA = {
         razaoSocial: '',
         nomeFantasia: '',
         cnpj: '',
@@ -20,13 +15,25 @@ function Provider({ children }) {
             complemento: '',
             bairro: '',
             cidade: '',
-            estado: ''
+            estado: 'Selecione um estado'
         }
-    });
+    }
+
+    const [loggedIn, setLogged] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [token, setToken] = useState('');
+    const [empresa, setEmpresa] = useState(INITIAL_EMPRESA);
+
+    const [empresaEdicao, setEmpresaEdicao] = useState(INITIAL_EMPRESA);
+
+    const [toEdit, setToEdited] = useState(false);
 
     const [listEmpresas, setListEmpresas] = useState([]);
 
     const contextValue = {
+        INITIAL_EMPRESA,
         loggedIn,
         setLogged,
         email,
@@ -40,7 +47,11 @@ function Provider({ children }) {
         listEmpresas,
         setListEmpresas,
         buttonClicked,
-        setButtonClicked
+        setButtonClicked,
+        toEdit,
+        setToEdited,
+        empresaEdicao,
+        setEmpresaEdicao
     };
 
     return (
