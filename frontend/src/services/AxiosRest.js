@@ -3,10 +3,11 @@ import { cadastroBackend, empresaBackend, loginBackend, url } from "../utils/glo
 
 // Usuário
 
-export const CadastroAxios = async (name, password) => {
+export const CadastroAxios = async (name, email, password) => {
     const cadastro = await axios.post(`${url}${cadastroBackend}`,
         {
             name,
+            email,
             password
         }
     );
@@ -14,10 +15,10 @@ export const CadastroAxios = async (name, password) => {
     return cadastro;
 }
 
-export const LoginAxios = async (name, password) => {
+export const LoginAxios = async (email, password) => {
     const token = await axios.post(`${url}${loginBackend}`,
         {
-            name,
+            email,
             password
         }
     );

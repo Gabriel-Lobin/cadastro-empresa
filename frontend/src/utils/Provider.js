@@ -21,6 +21,7 @@ function Provider({ children }) {
 
     const [loggedIn, setLogged] = useState(false);
     const [buttonClicked, setButtonClicked] = useState(true);
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
@@ -51,7 +52,9 @@ function Provider({ children }) {
         toEdit,
         setToEdited,
         empresaEdicao,
-        setEmpresaEdicao
+        setEmpresaEdicao,
+        fullName,
+        setFullName
     };
 
     return (
