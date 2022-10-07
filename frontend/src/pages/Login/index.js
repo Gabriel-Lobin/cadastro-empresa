@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import AppContext from '../../utils/AppContext';
 import { mainPath } from '../../utils/globalNames';
-import { LoginAxios } from '../../services/AxiosRest.js';
+import { LoginAxios, CadastroAxios } from '../../services/AxiosRest.js';
 
 const Login = () => {
     const navigate = useNavigate();
 
-    const { email, password, setEmail, setPassword, setToken, setLogged } = useContext(AppContext);
+    const { fullName, email, password, setFullName, setEmail, setPassword, setToken, setLogged } = useContext(AppContext);
 
     const login = async (e) => {
         e.preventDefault();
@@ -15,6 +15,13 @@ const Login = () => {
         setToken(tokenJwt.data);
         setLogged(true);
         navigate(mainPath, { replace: true });
+    }
+
+    const cadastrar = async (e) => {
+        e.preventDefault();
+        const cadastro = await CadastroAxios(fullName, email, password);
+        console.log(cadastro);
+        changeAuthMode();
     }
 
     const [authMode, setAuthMode] = useState("signin");
@@ -90,11 +97,14 @@ const Login = () => {
                         </span>
                     </div>
                     <div className="form-group mt-3">
-                        <label>Full Name</label>
+                        <label htmlFor="name-input">Full Name</label>
                         <input
+                            id="name-input"
                             type="email"
                             className="form-control mt-1"
                             placeholder="e.g Barty Simpson"
+                            value={fullName}
+                            onChange={({ target }) => setFullName(target.value)}
                         />
                     </div>
                     <div className="form-group mt-3">
@@ -128,7 +138,7 @@ const Login = () => {
                     </div>
 
                     <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary" onClick={(e) => login(e)}>
+                        <button type="submit" className="btn btn-primary" onClick={(e) => cadastrar(e)}>
                             Cadastrar
                         </button>
                     </div>
