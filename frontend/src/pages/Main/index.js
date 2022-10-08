@@ -1,29 +1,23 @@
-import React, { useContext } from "react";
-import Modal from 'react-modal';
+import React, { useContext, useState } from "react";
+// import Modal from 'react-modal';
 import { useEffect } from "react";
 import CadastroInputEmpresa from "../../components/CadastroInputEmpresa";
 import { DeleteEmpresaAxios, EditaEmpresaAxios, GetListaEmpresasAxios } from "../../services/AxiosRest";
 import AppContext from "../../utils/AppContext";
 import "./Modal.css";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        width: '30%',
-    },
-};
-
-Modal.setAppElement('#root');
 
 const Main = () => {
     const { empresaEdicao, setEmpresaEdicao, toEdit, setToEdited, buttonClicked, setButtonClicked, listEmpresas, setListEmpresas, INITIAL_EMPRESA } = useContext(AppContext);
 
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const listEstado = ["Selecione um estado", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES"];
+
+    const [show, setShow] = useState(false);
+
+    const [modalId, setModalId] = React.useState();
 
     useEffect(() => {
         mainAxios();
@@ -64,18 +58,14 @@ const Main = () => {
 
     function handleOpenModal(empresa) {
         setEmpresaEdicao(empresa);
-        setIsOpen(true);
+        setModalId(empresa.id);
+        setShow(true);
     }
 
     function handleCloseModal() {
         setEmpresaEdicao(INITIAL_EMPRESA);
         setToEdited(false);
-        setIsOpen(false);
-    }
-
-    function afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        // subtitle.style.color = '#f00';
+        setShow(false);
     }
 
     return (
@@ -113,94 +103,201 @@ const Main = () => {
                                         <td>{cnpj}</td>
                                         <td>{telefone}</td>
                                         <td>
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary"
-                                                onClick={() => handleOpenModal(empresaCard)}>
+                                            <Button variant="primary" onClick={() => handleOpenModal(empresaCard)}>
                                                 + info
-                                            </button>
-                                            <Modal
-                                                isOpen={modalIsOpen}
-                                                onAfterOpen={() => afterOpenModal()}
-                                                onRequestClose={() => handleCloseModal()}
-                                                style={customStyles}
-                                                contentLabel="Example Modal"
-                                            >
-                                                <h2>Info</h2>
+                                            </Button>
 
-                                                <fieldset className="form-group border p-3">
-                                                    <legend>Dados</legend>
-                                                    <div className="label">
-                                                        <label htmlFor="razModal">Razão Social: </label>
-                                                        <input type="text" id="razModal" name="razaoSocial" onChange={(e) => handleChange(e)} value={empresaEdicao.razaoSocial} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="nomeModal">Nome Fantasia: </label>
-                                                        <input type="text" id="nomeModal" name="nomeFantasia" onChange={(e) => handleChange(e)} value={empresaEdicao.nomeFantasia} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="cpnjModal">CNPJ: </label>
-                                                        <input type="text" id="cpnjModal" name="cnpj" onChange={(e) => handleChange(e)} value={empresaEdicao.cnpj} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="telModal">Telefone: </label>
-                                                        <input type="text" id="telModal" name="telefone" onChange={(e) => handleChange(e)} value={empresaEdicao.telefone} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <legend>Endereço</legend>
-                                                    <div className="label">
-                                                        <label htmlFor="lgModal">Logradouro: </label>
-                                                        <input type="text" id="lgModal" name="logradouro" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.logradouro} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="nuModal">Numero: </label>
-                                                        <input type="text" id="nuModal" name="numero" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.numero} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="coModal">Complemento: </label>
-                                                        <input type="text" id="coModal" name="complemento" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.complemento} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="baModal">Bairro: </label>
-                                                        <input type="text" id="baModal" name="bairro" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.bairro} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="ciModal">Cidade: </label>
-                                                        <input type="text" id="ciModal" name="cidade" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.cidade} disabled={!toEdit}></input>
-                                                    </div>
-                                                    <div className="label">
-                                                        <label htmlFor="esModal">Estado: </label>
-                                                        <input type="text" id="esModal" name="estado" onChange={(e) => handleChangeEndereco(e)} value={empresaEdicao.endereco.estado} disabled={!toEdit}></input>
-                                                    </div>
-                                                </fieldset>
-                                                <div>
-                                                    <button
-                                                        type="button"
-                                                        className="btn btn-primary"
-                                                        onClick={handleCloseModal}>
-                                                        Close
-                                                    </button>
+                                            <Modal show={show} onHide={handleCloseModal} size="lg">
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>+ Info</Modal.Title>
+                                                </Modal.Header>
+
+                                                <Modal.Body>
+                                                    <Form className="container">
+                                                        <div className="formModal">
+                                                            <div>
+                                                                <Form.Group className="mb-3" controlId="razModal">
+                                                                    <Form.Label>Razão Social:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="razModal"
+                                                                        name="razaoSocial"
+                                                                        placeholder="Razão Social"
+                                                                        onChange={(e) => handleChange(e)}
+                                                                        value={empresaEdicao.razaoSocial}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="nomeModal">
+                                                                    <Form.Label>Nome Fantasia:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="nomeModal"
+                                                                        name="nomeFantasia"
+                                                                        placeholder="Nome Fantasia"
+                                                                        onChange={(e) => handleChange(e)}
+                                                                        value={empresaEdicao.nomeFantasia}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="cpnjModal">
+                                                                    <Form.Label>CNPJ:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="cpnjModal"
+                                                                        name="cnpj"
+                                                                        placeholder="xx.xxx.xxx/0001-xx"
+                                                                        onChange={(e) => handleChange(e)}
+                                                                        value={empresaEdicao.cnpj}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="telModal">
+                                                                    <Form.Label>Telefone:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="telModal"
+                                                                        name="telefone"
+                                                                        placeholder="(38) 99876-5432"
+                                                                        onChange={(e) => handleChange(e)}
+                                                                        value={empresaEdicao.telefone}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+                                                            </div>
+
+                                                            <div>
+                                                                <Form.Group className="mb-3" controlId="lgModal">
+                                                                    <Form.Label>Logradouro:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="lgModal"
+                                                                        name="logradouro"
+                                                                        placeholder="Rua/Avenida"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.logradouro}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="nuModal">
+                                                                    <Form.Label>Numero:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="nuModal"
+                                                                        name="numero"
+                                                                        placeholder="123"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.numero}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="coModal">
+                                                                    <Form.Label>Complemento:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="coModal"
+                                                                        name="complemento"
+                                                                        placeholder="complemento"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.complemento}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="baModal">
+                                                                    <Form.Label>Bairro:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="baModal"
+                                                                        name="bairro"
+                                                                        placeholder="bairro"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.bairro}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="ciModal">
+                                                                    <Form.Label>Cidade:</Form.Label>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        type="text"
+                                                                        id="ciModal"
+                                                                        name="cidade"
+                                                                        placeholder="cidade"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.cidade}
+                                                                        defaultValue={null}
+                                                                        disabled={!toEdit}>
+                                                                    </input>
+                                                                </Form.Group>
+
+                                                                <Form.Group className="mb-3" controlId="esModal">
+                                                                <Form.Label>Estado:</Form.Label>
+                                                                    <select 
+                                                                        id="esModal" 
+                                                                        name="estado" 
+                                                                        className="form-select" 
+                                                                        aria-label="Default select example" 
+                                                                        valueDefault="Selecione um estado"
+                                                                        onChange={(e) => handleChangeEndereco(e)}
+                                                                        value={empresaEdicao.endereco.estado}
+                                                                        disabled={!toEdit}>
+                                                                        {
+                                                                            listEstado.map((item, index) => {
+                                                                                return (
+                                                                                    <option key={index} value={item}>{item}</option>
+                                                                                )
+                                                                            })}
+                                                                    </select>
+                                                                </Form.Group>
+                                                            </div>
+                                                        </div>
+
+                                                    </Form>
+                                                </Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleCloseModal}>
+                                                        Fechar
+                                                    </Button>
                                                     {
                                                         !toEdit
                                                             ? (
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-primary"
-                                                                    onClick={() => setToEdited(!toEdit)}>
+                                                                <Button variant="primary" onClick={() => setToEdited(!toEdit)}>
                                                                     Editar
-                                                                </button>
+                                                                </Button>
                                                             )
                                                             : (
-                                                                <button
-                                                                    type="button"
-                                                                    className="btn btn-primary"
-                                                                    onClick={() => editarEmpresa(id)}>
+                                                                <Button variant="primary" onClick={() => editarEmpresa(modalId)}>
                                                                     Confirmar
-                                                                </button>
+                                                                </Button>
                                                             )
                                                     }
-                                                </div>
+                                                </Modal.Footer>
                                             </Modal>
                                         </td>
+
                                         <td>
                                             <button
                                                 type="button"
